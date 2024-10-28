@@ -1,0 +1,26 @@
+{% extends 'professional.html' %} 
+
+{% block title %} Patient survey {% endblock %}
+
+{% block main %}
+<h1>Survey Answers</h1>
+<table class='border w-full h-full'>
+    <thead >
+        <tr class="flex justify-between">
+            <th>User Fullname</th>
+            <th>Question</th>
+            <th>Answer</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for entry in survey_data %}
+        <tr class="flex justify-between">
+            <td>{{ entry.fullname }}</td>
+            <td>{{ entry.question }}</td>
+            <td>{{ entry.answer }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+

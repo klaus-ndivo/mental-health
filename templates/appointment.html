@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title%} Appointment {% endblock%}
+{% block head %}
+  {{super()}}
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <link rel="stylesheet" href="/static/css/appointment.css">
+{%endblock%}
+{% block content %}
+  <section class="appointmentSection">
+    <div class="appointmentContainer">
+        <form id="appointmentForm" action="/appointment/book" method="POST">
+            <h1> Appointment </h1>
+            <div class="appointmentInput">
+                <input type="text" name="fullname" placeholder="Full name" pattern="[A-Za-z ]+" required>
+            </div>
+            <div class="appointmentInput">
+                <input type="email" name="email" placeholder="Email" required>
+            </div>
+            <div class="appointmentInput">   
+                <input type="tel" name="telephone" placeholder="Telephone Number" pattern="[0-9]{10}" required>
+            </div>
+            <div class="appointmentInput">
+                <select name="appointmentHours"  required>
+                    <option value="" disabled selected class="defaultValue"> Choose appointment hours</option>
+                    <option value="8:00am"> 8:00am </option>
+                    <option value="11:00am"> 11:00am </option>
+                    <option value="2:00pm"> 2:00pm </option>
+                    <option value="4:00pm"> 4:00pm </option>
+                    <option value="5:30pm"> 6:30pm </option>
+                </select>
+            </div>
+            <div class="appointmentInput">
+                <input type="text" id="datepicker" name="date" placeholder=" Choose date" required>
+                <input type="submit" value="Submit">
+            </div>
+        </form>
+    </div>
+  </section>
+  <script>
+    $(function() {
+        $("#datepicker").datepicker({
+            dateFormat: "dd/mm/yy",
+            minDate: +1 
+        });
+    });
+  </script>
+{%endblock%}

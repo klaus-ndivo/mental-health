@@ -1,0 +1,78 @@
+.appointmentSection {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.appointmentContainer {
+    background: url('/static/images/townHouse.jpg') no-repeat;
+    background-size: cover;
+    padding: 20px;
+    color: gold;
+    text-align: center;
+    align-items: center;
+}
+
+#appointmentForm {
+    background-color: black;
+   
+}
+.appointmentContainer form {
+    width: 500px;
+    padding: 20px;
+    margin: 8vh auto 0 auto;
+    padding: 20px;
+    border-radius: 15px;
+    font-size: 17px;
+}
+.appointmentContainer form h1{
+    padding: 5px;
+    text-align: center;
+    border-radius: 2px;
+}
+.appointmentInput {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+.appointmentInput input{
+    padding: 22px 15px 10px 0;
+    border: none;
+    background: transparent;
+    font-size: 15px;
+    
+}
+.appointmentInput select{
+    padding: 20px;
+}
+.appointmentInput input[type="submit"] {
+    background-color: gold;
+    color: black;
+    cursor: pointer;
+    border-radius: 20px;
+    margin-top: 15px;
+    font-size: 20px;
+}
+
+.appointmentInput input[type="text"],
+.appointmentInput input[type="email"],
+.appointmentInput input[type="tel"],
+.appointmentInput select,
+.appointmentInput input[type="date"] {
+    color: white; 
+    background-color: #333; 
+    border: 1px solid #ccc; 
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.appointmentInput input[type="text"]:focus,
+.appointmentInput input[type="email"]:focus,
+.appointmentInput input[type="tel"]:focus,
+.appointmentInput select:focus,
+.appointmentInput input[type="date"]:focus {
+    color: black;
+    background-color: #fff;
+    border-color: #555;
+    outline: none;
+}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title%} Home {% endblock%}
+{% block head %}
+{{super()}}
+
+{% endblock %}
+{% block content %}
+
+<div class="relative">
+  <!-- Background image -->
+  <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('/static/images/nik-shuliahin-BuNWp1bL0nc-unsplash.jpg'); filter: brightness(50%);"></div>
+  
+  <!-- Content container -->
+  <div class="relative z-10 h-screen flex items-center justify-center">
+    <!-- Heading -->
+    <h1 class="text-white text-4xl font-bold text-center">Welcome to our Mental Health Awareness initiative!!!</h1>
+  </div>
+</div>
+
+
+
+{% endblock %}

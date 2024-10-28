@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% block title%} Home {% endblock%}
+{% block head %}
+    {{super()}}
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/userpanel.css') }}">
+    
+{% endblock %}
+{% block content %}
+<section class="dashboard-section">
+    <div id="upper-part">
+        <div class="welcome-note">
+            <p class="statement">Tubonge Mental Health</p>
+            <a  href=""> Welcome on board  {{ current_user.fullname }} </a>
+        </div>
+    </div>
+    <div class="middle-part">
+        <div class="booking-part">
+            <h2> My Appointments </h2>
+            {% for appointment in appointments %}
+            <div class="booking-card">
+                <div class="booking-detail">
+                    <h3> Appointment booked for:</h3>
+                    <p><strong> {{ appointment.date.strftime('%d/%m/%Y') }}  {{ appointment.appointmentHours}}   </strong></p>
+                </div>
+                <div class="booking-actions">
+                    <button class="modify-btn" onclick="showModifyForm('{{ appointment.id }}')"> Update </button>
+                    <form action="{{ url_for('client.deleteAppointment', appointmentId=appointment.id)}}" method="post" onsubmit="return confirmDelete()">
+                        <button type="submit"> Cancel </button>
+                    </form>
+
+                    <div id="modify-form-overlay-{{ appointment.id }}" class="modify-form-overlay" 
+                        onclick="hideModifyForm('{{ appointment.id }}')">
+                        <div class="modify-div" onclick="event.stopPropagation();">
+                            <button onclick="hideModifyForm('{{ appointment.id }}')" class="close-btn"> X </button>
+                            <form class="modify-form" action="{{ url_for('client.modifyAppointment', appointmentId=appointment.id) }}" method="POST">
+                                <input type="text" name="fullname" value="{{ appointment.fullname }}" required>
+                                <input type="email" name="email" value="{{ appointment.email }}" required>
+                                <input type="tel" name="telephone" value="{{ appointment.telephone }}" required>
+                                <select name="appointmentHours"  required>
+                                    <option value="" disabled selected > Choose appointment hours</option>
+                                    <option value="7:00am" {{ 'selected' if appointment.appointmentHours == '7:00am' else '' }}> 8:00am </option>
+                                    <option value="11:00am" {{ 'selected' if appointment.appointmentHours == '11:00am' else '' }}> 11:00am </option>
+                                    <option value="2:00pm" {{ 'selected' if appointment.appointmentHours == '2:00pm' else '' }}> 2:00pm </option>
+                                    <option value="4:00pm" {{ 'selected' if appointment.appointmentHours == '4:00pm' else '' }}> 4:00pm </option>
+                                    <option value="6:30pm" {{ 'selected' if appointment.appointmentHours == '6:30pm' else '' }}> 6:30pm </option>
+                                </select>
+                                <input type="text" name="date" id="datepicker-{{ appointment.id }}" value="{{ appointment.date.strftime('%d/%m/%Y') }}" required>
+                                <button type="submit"> Submit Changes</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <p> No Appointments found.</p>
+            {% endfor %}
+        </div>            
+        <div class="form-part">
+            <div class="form-card">
+                <h2> Appointments </h2>
+                <p> Secure an Appointment <i class="fas fa-calendar-check"></i> </p>
+                <form action="{{ url_for('main.appointment')}}">
+                    <button type="submit"> Book now </button>
+                </form>
+            </div>                
+            <div class="form-card">
+                <h2> Survey Form </h2>
+                <p> Fill in this survey form </p>
+                <form action="{{ url_for('main.survey')}}">
+                    <button type="submit"> Survey</button>
+                </form>
+            </div>                   
+        </div>
+    </div>
+<section>
+<script>
+    function confirmDelete() {
+        return confirm("Are you sure you want to cancel this appointment?");
+    }
+    function showModifyForm(appointmentId) {
+        var overlayId = "modify-form-overlay-" + appointmentId;
+        var overlay = document.getElementById(overlayId);
+        overlay.style.display = "flex"; // Use flex to center the form
+    }
+    
+    function hideModifyForm(appointmentId) {
+        var overlayId = "modify-form-overlay-" + appointmentId;
+        var overlay = document.getElementById(overlayId);
+        overlay.style.display = "none";
+    }
+    $(function() {
+        // Assuming appointment.date is already formatted as "dd/mm/yy"
+        {% for appointment in appointments %}
+        $("#datepicker-{{ appointment.id }}").datepicker({
+            dateFormat: "dd/mm/yy",
+            minDate: +1
+        });
+        {% endfor %}
+    });       
+</script>                    
+   
+{% endblock %}

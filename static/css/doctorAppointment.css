@@ -1,0 +1,133 @@
+/* .dashboard-section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+} */
+
+.mainSection {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 20px;
+    flex-direction: row;
+    height: 100vh;
+    flex-wrap: wrap;
+    margin-top: 100px;
+}
+
+#appointmentDetailsSection {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Ensure the form appears above other content */
+  }
+  
+#appointmentDetailsForm {
+    /* max-width: 400px; */
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+  }
+.appointmentField {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 15px;
+}
+  #appointmentDetailsForm label {
+    display: block;
+    color: black;
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+  #appointmentDetailsForm input[type="text"],
+  #appointmentDetailsForm input[type="email"],
+  #appointmentDetailsForm input[type="tel"],
+  #appointmentDetailsForm input[type="date"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  #appointmentDetailsForm button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  #appointmentDetailsForm button:hover {
+    background-color: #0056b3;
+  }
+  
+.appointment {
+    max-width: 420px;
+    margin: 0px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+}
+.appointment h2, #appointmentDetailsForm h2{
+    margin-bottom: 20px;
+    text-align: center;
+    color: black;
+    font-weight: 700;
+}
+.appointmentDetails{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+    justify-content: space-between;
+}
+.appointmentDetails p{
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 10px;
+    padding: 15px;
+    border: 2px solid #e0e0e0;
+    text-align: center;
+    margin-right: 10px;
+}
+.appointmentAction button{
+    text-decoration: none;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    background-color: rgb(41, 57, 194);
+    border: none;
+    border-radius: 70px;
+    cursor: pointer;
+}
+.appointmentAction button:hover {
+    background-color: rgb(4, 13, 95);
+    transform: scale(1.05);
+}
+
+
+@media screen and (max-width: 768px) {
+    .mainSection {
+        padding: 10% 5%;
+        flex-direction: column;
+        align-items: center;
+    }
+    .appointment{
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+}

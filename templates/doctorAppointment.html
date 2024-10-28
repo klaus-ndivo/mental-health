@@ -1,0 +1,97 @@
+{% extends 'professional.html' %}
+{% block title %} Doctor Appointments {% endblock %}
+{% block head %}
+  {{super()}}
+    <link rel="stylesheet" href="/static/css/doctorAppointment.css">
+{% endblock %}
+{% block main%}
+<div class="mainSection h-screen overflow-y-scroll w-full">
+    <div id="appointmentDetailsSection" style="display: none;">
+      <form id="appointmentDetailsForm">
+        <h2> Appointment Details </h2>
+        <div class="appointmentField">
+          <label for="fullname"> Full name </label>
+          <input type="text" id="fullname" name="fullname" readonly>
+        </div>
+        <div class="appointmentField">
+          <label for="email"> Email </label>
+          <input type="email" id="email" name="email" readonly>
+        </div>
+        <div class="appointmentField">
+          <label for="telephone"> Telephone number </label>
+          <input type="tel" id="telephone" name="telephone" readonly>
+        </div>
+        <div class="appointmentField">
+          <label for="appointmentHours"> Appointment Hours </label>
+          <input type="text" id="appointmentHours" name="appointmentHours" readonly>
+        </div>
+        <div class="appointmentField">
+          <label for="date"> Date </label>
+          <input type="date" id="date" name="date" readonly>
+        </div>
+        <button type="button" onclick="hideAppointmentDetails()"> Close </button>
+      </form>
+    </div>
+    <div class="appointment">
+        <h2> Booked appointments </h2>
+        {% for appointment in appointments %}
+            <div class="appointmentDetails">
+                {% if appointment.status == 'Pending' %}
+                    <p> {{ appointment.fullname }} - {{ appointment.date.strftime('%d/%m/%Y') }} </p>
+                    <div class="appointmentAction">
+                        <form action="{{ url_for('doctor.acceptAppointment', appointmentId=appointment.id) }}" method="post">
+                            <button type="submit"> Accept </button>
+                        </form>
+                    </div>
+                {% endif %}
+                {% if appointment.status == 'Accepted' %}
+                    <p> {{ appointment.fullname }} - {{ appointment.date.strftime('%d/%m/%Y') }} </p>
+                    <div class="appointmentAction">
+                        <form action="{{ url_for('doctor.assignDoctor', appointmentId=appointment.id, doctorId=current_user.id) }}" method="post">
+                            <button type="submit"> Assign </button>
+                        </form>
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+    <div class="appointment">
+        <h2> My Appointments </h2>
+        {% for appointment in appointments %}
+            <div class="appointmentDetails">
+                {% if appointment.status == 'Assigned' and appointment.doctorId == current_user.id %}
+                <p> {{ appointment.fullname }} - {{ appointment.date.strftime('%d/%m/%Y') }} </p>
+                <div class="appointmentAction">
+                    <button type="button" onclick="viewAppointmentDetails('{{ appointment.fullname }}', '{{ appointment.email }}', 
+                    '{{ appointment.telephone }}', '{{ appointment.appointmentHours }}', 
+                    '{{ appointment.date }}')"> View Details </button>
+                </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+<script>
+    function viewAppointmentDetails(fullname, email, telephone, appointmentHours, date) {
+      // Populate the form fields with appointment details
+      document.getElementById('fullname').value = fullname;
+      document.getElementById('email').value = email;
+      document.getElementById('telephone').value = telephone;
+      document.getElementById('appointmentHours').value = appointmentHours;
+      document.getElementById('date').value = date;
+  
+      // Show the booking details section
+      document.getElementById('appointmentDetailsSection').style.display = 'block';
+    }
+  
+    function hideAppointmentDetails() {
+      // Hide the booking details section
+      document.getElementById('appointmentDetailsSection').style.display = 'none';
+    }
+    window.setTimeout(function() {
+        $(".alert").fadeTo(500, 0).slideUp(500, function(){
+            $(this).remove(); 
+        });
+      }, 5000);
+</script>
+{% endblock%}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> {% block title%} {% endblock%}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/pop.css">
+    {% endblock %}
+</head>
+<body>
+    <header>
+        <nav class="fixed relative w-full top-0 left-0 text-white bg-yellow-500 bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600 py-4 px-6 items-center justify-center align items-center">
+            <ul class="flex gap-4 items-center justify-center align items-center text-sm space-x-4">
+                <a href="{{url_for('main.home')}}" class="flex mg-left absolute  left-0 px-8 items-stretch self-center">
+                    <img src="" class="h-8" alt="">
+                    <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white self-center">Tubonge Mental Health</span>
+                </a>
+                {% if not current_user.is_authenticated %}
+                <li><a href="{{url_for('main.home')}}"> Home </a></li>
+                <li><a href="{{url_for('auth.signUp')}}" class="absolute right-34 top-4" >Sign Up</a></li>
+                <li><a href="{{url_for('auth.login')}}" class="transition delay-150 duration-300 ease-in-out top-2 flex text-black absolute right-48 bottom-0 space-x-4 px-6 self-center bg-white hover:bg-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-white-600 dark:hover:bg-white-700 dark:focus:ring-blue-800"><button><i class="fas fa-sign-in-alt"></i> Doctor Login</button></a> </li>
+                <li><a href="{{url_for('auth.login')}}" class="transition delay-150 duration-300 ease-in-out top-2 flex text-black absolute right-8 bottom-0 space-x-4 px-6 self-center bg-white hover:bg-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-white-600 dark:hover:bg-white-700 dark:focus:ring-blue-800">Get started</a> </li>
+                {% endif %}
+                {% if current_user.is_authenticated %}
+                    {% if current_user.role == 'user' %}
+                        <li><a href="{{url_for('main.userPanel')}}"> Home </a></li>
+                        <li><a href="{{url_for('main.appointment')}}" > Appointment </a></li>
+                        <li><a href="{{url_for('main.survey')}}" class="absolute right-34 top-4" > Survey </a></li>
+                    {% endif %}
+                    {% if current_user.role == 'doctor' %}
+                        <li><a href="{{url_for('main.professional')}}"> Home </a></li>
+                    {% endif %}
+                        <li><a href="{{url_for('auth.logout')}}" class="transition delay-150 duration-300 ease-in-out top-2 flex text-black absolute right-8 bottom-0 space-x-4 px-6 self-center bg-white hover:bg-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-white-600 dark:hover:bg-white-700 dark:focus:ring-blue-800">Log out</a> </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <div style="position:relative;">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alertMessage alertMessage-{{category}}">
+                        <span>{{ message }}</span>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+    {% block content %}
+    {% endblock %}
+    <script>
+        window.setTimeout(function() {
+            $(".alertMessage").fadeTo(500, 0).slideUp(500, function(){
+                $(this).remove(); 
+            });
+          }, 3000);     
+    </script>
+</body>
+</html>

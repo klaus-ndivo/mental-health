@@ -1,0 +1,7 @@
+flask
+flask-login
+flask-session
+flask-migrate
+flask-sqlAlchemy
+requests
+datetime

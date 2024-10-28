@@ -1,0 +1,24 @@
+{% extends 'professional.html' %} 
+
+{% block title %} Comments {% endblock %}
+
+{% block main %}
+<h1>Survey Comments</h1>
+<table>
+    <thead>
+        <tr>
+            <th>User Full Name</th>
+            <th>Comment</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for comment, fullname in comments %}
+        <tr>
+            <td>{{ fullname }}</td>
+            <td>{{ comment }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+

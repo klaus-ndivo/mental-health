@@ -1,0 +1,19 @@
+.alertMessage {
+    padding: 10px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    position: absolute;
+    z-index: 1000;
+    top: 100px;
+    right: 18px;
+  }
+.alertMessage-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+  }
+.alertMessage-error {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+  }

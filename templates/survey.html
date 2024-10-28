@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title%} Survey {% endblock%}
+{% block head %}
+{{super()}}
+
+{% endblock %}
+{% block content %}
+<!-- Survey form -->
+<!-- Survey form -->
+<div class="bg-gray-900">
+    <h1 class="text-3xl text-center align-center justify-center 
+               text-white font-bold mb-2 px-12 py-12 bottom-2">
+       Survey form
+    </h1>
+    <h2 class="text-sm text-center text-white">Please fill this form</h2>
+    <form action="/survey/submit" method="POST">
+        {% for i, question in enumerate(questions) %}
+        <div id="form"
+            class="bg-white max-w-lg mx-auto 
+                    mt-8 p-8 rounded-lg shadow-lg">
+            <div class="mb-6">
+                <p> Question {{ i + 1 }}</p>
+                <label class="block text-gray-700 font-bold mb-2">
+                    {{ question }}
+                </label>
+                <div class="flex">
+                    <label for="question{{ i + 1 }}-yes" class="mr-4">
+                        <input type="radio" id="question{{ i + 1 }}-yes"
+                            name="question{{ i + 1 }}" value="True" class="mr-2">Yes
+                    </label>
+                    <label for="question{{ i + 1 }}-no" class="mr-4">
+                        <input type="radio" id="question{{ i + 1 }}-no"
+                            name="question{{ i + 1 }}" value="False" class="mr-2">No
+                    </label>
+                </div>
+            </div> 
+        </div>
+        {% endfor %}
+        
+        <div class="max-w-lg mx-auto mt-8 P-8 rounded-lg ">
+            <label for="comment"
+                class="block text-white-700 font-bold mb-2">
+                Any comments or suggestions
+            </label>
+            <textarea name="comment" id="comment"
+                    required
+                    placeholder="Enter your comment here"
+                    class="appearance-none border rounded w-full 
+                            py-2 px-3 text-gray-700 leading-tight 
+                            focus:outline-none focus:shadow-outline">
+            </textarea>
+            <button type="submit"
+            class="bg-white text-gray-900 font-bold py-2 
+                        px-4 rounded focus:outline-none 
+                        focus:shadow-outline"> Submit
+            </button>
+        </div>
+    </form> 
+</div>
+{% endblock %}
